@@ -9,8 +9,8 @@ def solicitar_valores_iniciais():
     root = tk.Tk()
     root.withdraw()  # Esconder a janela principal
     num_manobras = simpledialog.askinteger("Número de Manobras", "Insira o número de manobras que deseja calcular:")
-    a_inicial = simpledialog.askfloat("Posição Inicial", "Insira a posição inicial do veículo em km:")
-    a_final = simpledialog.askfloat("Posição Final", "Insira a posição final do veículo em km:")
+    a_inicial = simpledialog.askfloat("Órbita Inicial", "Insira o raio inicial do veículo em km:")
+    a_final = simpledialog.askfloat("Órbita Final", "Insira o raio final do veículo em km:")
     velocidade_inicial = simpledialog.askfloat("Velocidade Inicial", "Insira a velocidade inicial do veículo:")
     tempo_inicial = simpledialog.askfloat("Tempo Inicial", "Insira o tempo necessário para o satélite completar uma volta completa ao redor da terra:")
     root.destroy()  # Fechar a janela
