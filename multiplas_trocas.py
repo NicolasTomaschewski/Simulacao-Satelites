@@ -11,8 +11,8 @@ def solicitar_valores_iniciais():
     num_manobras = simpledialog.askinteger("Número de Manobras", "Insira o número de manobras que deseja calcular:")
     a_inicial = simpledialog.askfloat("Órbita Inicial", "Insira o raio inicial do veículo em km:")
     a_final = simpledialog.askfloat("Órbita Final", "Insira o raio final do veículo em km:")
-    velocidade_inicial = simpledialog.askfloat("Velocidade Inicial", "Insira a velocidade inicial do veículo:")
-    tempo_inicial = simpledialog.askfloat("Tempo Inicial", "Insira o tempo necessário para o satélite completar uma volta completa ao redor da terra:")
+    velocidade_inicial = simpledialog.askfloat("Velocidade Inicial", "Insira a velocidade inicial do veículo (em m/s):")
+    tempo_inicial = simpledialog.askfloat("Tempo Inicial", "Insira o tempo necessário para o satélite completar uma volta completa ao redor da Terra (em segundos):")
     root.destroy()  # Fechar a janela
     return num_manobras, a_inicial, a_final, velocidade_inicial, tempo_inicial
 
@@ -24,19 +24,22 @@ def calcular_manobras(num_manobras, a_inicial, a_final, velocidade_inicial, temp
         a1 = a_list[i]
         a2 = a_list[i + 1]
         
-        modulo1 = math.sqrt((2 * (a2 / a1))/((a2 / a1) + 1)) - 1
-        if modulo1 <= 0:
-            modulo1 = modulo1 * (-1)
+        modulo1 = math.sqrt((2 * (a2 / a1)) / ((a2 / a1) + 1)) - 1
         deltav1 = velocidade_inicial * modulo1
 
-        modulo2 = (1 - math.sqrt((2 / ((a2 / a1) + 1))))
-        if modulo2 <= 0:
-            modulo2 = modulo2 * (-1)
-        deltav2 = velocidade_inicial * modulo2 * (math.sqrt(a1 / a2))
+        modulo2 = 1 - math.sqrt(2 / ((a2 / a1) + 1))
+        deltav2 = velocidade_inicial * modulo2 * math.sqrt(a1 / a2)
 
         tempo_total = 0.5 * ((1 + (a2 / a1)) / 2) ** (3 / 2) * tempo_inicial
         
         orbitas.append((a1, a2, deltav1, deltav2, tempo_total))
+
+        # Exibir os resultados em uma caixa de diálogo
+        messagebox.showinfo(
+            f"Resultados da Manobra {i + 1}",
+            f"Órbita Inicial: {a1:.2f} km\nÓrbita Final: {a2:.2f} km\nDelta V1: {deltav1:.2f} m/s\nDelta V2: {deltav2:.2f} m/s\nTempo Total: {tempo_total:.2f} segundos"
+        )
+
     return orbitas
 
 # Criação da janela para solicitar os valores das órbitas
@@ -81,7 +84,7 @@ def desenhar_figura(orbitas):
     ax.title.set_color('white')  # Define a cor do título
 
     # Adiciona o título com tamanho maior
-    ax.set_title("Manobras de Hohmann em 2-D", fontsize=20)
+    ax.set_title("Múltiplas Trocas", fontsize=20)
 
     for i, (a1, a2, deltav1, deltav2, tempo_total) in enumerate(orbitas):
         r1 = a1
