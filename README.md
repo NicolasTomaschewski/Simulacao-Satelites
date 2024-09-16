@@ -68,6 +68,6 @@ Este projeto utiliza diversas bibliotecas do Python para realizar cálculos mate
 5. **Math** (`math`): Biblioteca padrão do Python para operações matemáticas básicas, como trigonometria e exponenciais.
    - Também não requer instalação adicional.
 
-## Artigo Desenvolvido:
+## Artigo Desenvolvido
 
 Ao final do estudo um artigo foi escrito visando sintetizar e apresentar todos os resultados. 
